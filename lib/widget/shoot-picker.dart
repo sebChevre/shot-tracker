@@ -6,38 +6,24 @@ import 'package:shot_tracker/widget/shoot-position-viewer.dart';
 import '../model/shoot.dart';
 import '../model/shoot_type.dart';
 import '../model/team-stats.dart';
+import '../model/match.dart' as match_lib;
 
 class ShootPicker extends StatefulWidget {
-  TeamStat shcbStat;
-  TeamStat advStat;
+  match_lib.Match match;
 
-  ShootPicker(this.shcbStat, this.advStat);
+  ShootPicker(this.match);
 
   @override
-  State<ShootPicker> createState() => _ShootPickerState(shcbStat, advStat);
+  State<ShootPicker> createState() => _ShootPickerState(match);
 }
 
 class _ShootPickerState extends State<ShootPicker> {
-  _ShootPickerState(this.shcbStat, this.advStat);
+  _ShootPickerState(this.match);
 
-  TeamStat shcbStat;
-  TeamStat advStat;
-
+  match_lib.Match match;
   bool isShootInTrack = false;
   bool isShcbShoot = true;
-
   late Shoot shootInTrack;
-
-  void setShot(Offset shootPosition) {
-    setState(() {
-      //isShootInTrack = false;
-      shootInTrack.addShootPosition(shootPosition.dx, shootPosition.dy);
-
-      isShcbShoot
-          ? shcbStat.addShoot(shootInTrack)
-          : advStat.addShoot(shootInTrack);
-    });
-  }
 
   dealButtonClick(value) {
     print(value);
@@ -46,57 +32,57 @@ class _ShootPickerState extends State<ShootPicker> {
       switch (value) {
         case "shcb-goal":
           {
-            isShcbShoot = true;
-            shootInTrack = Shoot(shootType: ShootType.goal);
+            shootInTrack =
+                Shoot(shootType: ShootType.goal, team: match.getResident());
           }
           break;
 
         case "shcb-sog":
           {
-            isShcbShoot = true;
-            shootInTrack = Shoot(shootType: ShootType.sog);
+            shootInTrack =
+                Shoot(shootType: ShootType.sog, team: match.getResident());
           }
           break;
 
         case "shcb-miss":
           {
-            isShcbShoot = true;
-            shootInTrack = Shoot(shootType: ShootType.miss);
+            shootInTrack =
+                Shoot(shootType: ShootType.miss, team: match.getResident());
           }
           break;
 
         case "shcb-block":
           {
-            isShcbShoot = true;
-            shootInTrack = Shoot(shootType: ShootType.block);
+            shootInTrack =
+                Shoot(shootType: ShootType.block, team: match.getResident());
           }
           break;
 
         case "adv-goal":
           {
-            isShcbShoot = false;
-            shootInTrack = Shoot(shootType: ShootType.goal);
+            shootInTrack =
+                Shoot(shootType: ShootType.goal, team: match.getVisiteur());
           }
           break;
 
         case "adv-sog":
           {
-            isShcbShoot = false;
-            shootInTrack = Shoot(shootType: ShootType.sog);
+            shootInTrack =
+                Shoot(shootType: ShootType.sog, team: match.getVisiteur());
           }
           break;
 
         case "adv-miss":
           {
-            isShcbShoot = false;
-            shootInTrack = Shoot(shootType: ShootType.miss);
+            shootInTrack =
+                Shoot(shootType: ShootType.miss, team: match.getVisiteur());
           }
           break;
 
         case "adv-block":
           {
-            isShcbShoot = false;
-            shootInTrack = Shoot(shootType: ShootType.block);
+            shootInTrack =
+                Shoot(shootType: ShootType.block, team: match.getVisiteur());
           }
           break;
       }
@@ -106,6 +92,10 @@ class _ShootPickerState extends State<ShootPicker> {
 
   @override
   Widget build(BuildContext context) {
+    //dimensions écrans
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return MaterialApp(
         title: 'Shot Picker',
         home: Scaffold(
@@ -115,6 +105,10 @@ class _ShootPickerState extends State<ShootPicker> {
                       onPressed: () {
                         setState(() {
                           isShootInTrack = false;
+
+                          print("ShootInTrack ${shootInTrack.shootPosition.x}");
+                          match.addShootForTeam(
+                              shootInTrack.team, shootInTrack);
                         });
                       },
                     )
@@ -122,14 +116,17 @@ class _ShootPickerState extends State<ShootPicker> {
               title: Text('SHCB Shots Trackers'),
             ),
             body: isShootInTrack
-                ? ShootPositionPicker(
-                    setShot: setShot,
-                    shootInTrack: shootInTrack,
-                    isShcbShoot: isShcbShoot)
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      ShootPositionPicker(shootInTrack: shootInTrack),
+                    ],
+                  )
                 : Container(
-                    //color: Colors.grey[300],
+                    color: Colors.grey[300],
                     width: double.infinity,
-                    height: 400,
+                    height: MediaQuery.of(context).size.height,
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -158,7 +155,7 @@ class _ShootPickerState extends State<ShootPicker> {
                               Container(
                                 color: Colors.lightBlue,
                                 child: Text(
-                                  "${shcbStat.goal()}",
+                                  "${match.getResidentstats().goal()}",
                                   style: TextStyle(
                                       fontSize: 42,
                                       fontWeight: FontWeight.bold),
@@ -166,7 +163,7 @@ class _ShootPickerState extends State<ShootPicker> {
                                 ),
                               ),
                               Text(
-                                "${advStat.goal()}",
+                                "${match.getVisiteurStats().goal()}",
                                 style: TextStyle(
                                     fontSize: 42, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
@@ -190,7 +187,7 @@ class _ShootPickerState extends State<ShootPicker> {
                                     color: Colors.red),
                                 GridButtonItem(
                                     child: Text(
-                                      "${shcbStat.sog()}",
+                                      "${match.getResidentstats().sog()}",
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -211,7 +208,7 @@ class _ShootPickerState extends State<ShootPicker> {
                                 GridButtonItem(
                                     value: "adv-sog",
                                     child: Text(
-                                      "${advStat.sog()}",
+                                      "${match.getVisiteurStats().sog()}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -234,7 +231,7 @@ class _ShootPickerState extends State<ShootPicker> {
                                 GridButtonItem(
                                     value: "shcb-miss",
                                     child: Text(
-                                      "${shcbStat.miss()}",
+                                      "${match.getResidentstats().miss()}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -255,7 +252,7 @@ class _ShootPickerState extends State<ShootPicker> {
                                 GridButtonItem(
                                     value: "adv-miss",
                                     child: Text(
-                                      "${advStat.miss()}",
+                                      "${match.getVisiteurStats().miss()}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -278,7 +275,7 @@ class _ShootPickerState extends State<ShootPicker> {
                                 GridButtonItem(
                                     value: "shcb-block",
                                     child: Text(
-                                      "${shcbStat.block()}",
+                                      "${match.getResidentstats().block()}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -299,7 +296,7 @@ class _ShootPickerState extends State<ShootPicker> {
                                 GridButtonItem(
                                     value: "adv-block",
                                     child: Text(
-                                      "${advStat.block()}",
+                                      "${match.getVisiteurStats().block()}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -322,7 +319,7 @@ class _ShootPickerState extends State<ShootPicker> {
                                 GridButtonItem(
                                     value: "shcb-goal",
                                     child: Text(
-                                      "${shcbStat.goal()}",
+                                      "${match.getResidentstats().goal()}",
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -343,7 +340,7 @@ class _ShootPickerState extends State<ShootPicker> {
                                 GridButtonItem(
                                     value: "adv-goal",
                                     child: Text(
-                                      "${advStat.goal()}",
+                                      "${match.getVisiteurStats().goal()}",
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -359,9 +356,28 @@ class _ShootPickerState extends State<ShootPicker> {
                             style: ElevatedButton.styleFrom(
                                 minimumSize: const Size.fromHeight(50)),
                             onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ShootPositionViewer(match: match)));
+
+                              /*
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ShootPositionViewer(
-                                      shcbStat: shcbStat, advStat: advStat)));
+                                  builder: (context) => Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Container(
+                                                height: height,
+                                                width: width,
+                                                child: Center(
+                                                  child: ShootPositionViewer(
+                                                      match: match),
+                                                ))
+                                          ])));
+                                          */
                             },
                             child: Text('Shoots'))
                       ],
