@@ -20,7 +20,7 @@ jobs:
       - name: SyncFtp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: aj0c0.ftp.infomaniak.com/ftp
+          server: aj0c0.ftp.infomaniak.com
           username: aj0c0_seb
           password: Seb%110978
           local-dir: ./build/web/
