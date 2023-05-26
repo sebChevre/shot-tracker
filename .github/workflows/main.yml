@@ -41,4 +41,4 @@ jobs:
           username: aj0c0_seb
           password: Seb%110978
           local-dir: ./.git/
-          server-dir:  /sites/shot-tracker.dev.seb-chevre.org/
+          server-dir:  /sites/shot-tracker.dev.seb-chevre.org/.git/
