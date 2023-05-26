@@ -18,14 +18,14 @@ jobs:
       - name: GitInfo and set
         run: |
           echo ${{ steps.tags_name.SOURCE_NAME }}
-          echo $SOURCE_TAG
+          echo ${{ steps.tags_name.SOURCE_TAG }}
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
         with:
           channel: 'dev'
       - run: flutter config --enable-web
       - run: flutter pub get
-      - run: flutter build web --build-number=1.1.1 --build-name=2 --web-renderer 
+      - run: flutter build web --build-number=1.1.1 --build-name=2 --web-renderer canvaskit
       - name: SyncFtp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
