@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_grid_button/flutter_grid_button.dart';
 import 'package:shot_tracker/model/shoot.dart';
@@ -12,13 +15,9 @@ void main() => runApp(ShcbStats());
 
 class _HomePageState extends State<HomePage> {
   /*** INITIAL STATE */
-
   final match_lib.Match match = match_lib.Match(
       resident: Team(nom: "SHC Bassecourt", nomCourt: "SHCB"),
       visiteur: Team(nom: "Visiteur", nomCourt: "VIS"));
-
-  //final TeamStat shcbStat = TeamStat(shoots: <Shoot>[]);
-  //final TeamStat advStat = TeamStat(shoots: <Shoot>[]);
 
   bool shootInTrack = false;
   bool shcbShoot = true;
@@ -28,6 +27,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<dynamic> main() async {
+    final configFile = File('versions.json');
+    final jsonString = await configFile.readAsString();
+    final dynamic jsonMap = jsonDecode(jsonString);
+    return jsonMap;
   }
 
   @override

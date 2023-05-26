@@ -1,8 +1,8 @@
 name: Flutter Web
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '*'
 jobs:
   build:
     name: Build Web
@@ -10,13 +10,19 @@ jobs:
       my_secret: ${{secrets.commit_secret}}
     runs-on: ubuntu-latest
     steps:
+      - name: GitNames
+        id: tags_name
+        run: |
+          echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
+          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
         with:
           channel: 'dev'
       - run: flutter config --enable-web
       - run: flutter pub get
-      - run: flutter build web --release
+      - run: flutter build web --web-renderer --release --build-number=1.1.1 --build-name=2
       - name: SyncFtp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:

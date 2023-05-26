@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_grid_button/flutter_grid_button.dart';
 import 'package:shot_tracker/model/shoot_position.dart';
 import 'package:shot_tracker/model/team-stats.dart';
@@ -9,9 +10,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../model/shoot.dart';
 import '../model/shoot_type.dart';
 import '../model/match.dart' as match_lib;
+import '../painter/team_text_painter.dart';
 
 class ShootPositionViewer extends StatefulWidget {
-  ShootPositionViewer({super.key, required this.match});
+  const ShootPositionViewer({super.key, required this.match});
 
   final match_lib.Match match;
 
@@ -93,9 +95,17 @@ class _ShootPositionViewerState extends State<ShootPositionViewer>
     print("change metrics");
   }
 
+  void _postFrameCallback(_) {
+    setState(() {
+      pisteOffset = _getPisteOffset(_pisteImageKey)!;
+      pisteSize = _getPisteSize(_pisteImageKey)!;
+      pisteRendering = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    _runsAfterBuild();
+    SchedulerBinding.instance.addPostFrameCallback(_postFrameCallback);
 
     //dimensions écrans
     double width = MediaQuery.of(context).size.width;
@@ -109,33 +119,46 @@ class _ShootPositionViewerState extends State<ShootPositionViewer>
               }),
               title: const Text('SHCB Shots Viewer'),
             ),
-            body: Stack(
+            body: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: SvgPicture.asset(
-                    key: _pisteImageKey,
-                    'images/piste.svg',
-                    fit: BoxFit.fill,
-                    height: height,
-                    //width: width,
-                    //alignment: Alignment.topCenter
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  //color: Colors.amber,
-                  child: pisteRendering
-                      ? CustomPaint(
-                          painter: OpenPainter(
-                              match.getResidentstats().shoots,
-                              match.getVisiteurStats().shoots,
-                              pisteSize,
-                              pisteOffset),
-                        )
-                      : Container(),
-                ),
+                Stack(
+                  children: [
+                    Container(
+                        //height: height,
+
+                        child: pisteRendering
+                            ? CustomPaint(
+                                painter: TextTeamsPainter(
+                                    pisteSize: pisteSize, match: match),
+                              )
+                            : Container()),
+                    Container(
+                      //alignment: Alignment.topCenter,
+                      child: SvgPicture.asset(
+                        key: _pisteImageKey,
+                        'images/piste.svg',
+                        fit: BoxFit.fill,
+                        height: height,
+                        width: width,
+                        //alignment: Alignment.topCenter
+                      ),
+                    ),
+                    Container(
+                      //color: Colors.amber,
+                      child: pisteRendering
+                          ? CustomPaint(
+                              painter: OpenPainter(
+                                  match.getResidentstats().shoots,
+                                  match.getVisiteurStats().shoots,
+                                  pisteSize,
+                                  pisteOffset),
+                            )
+                          : Container(),
+                    ),
+                  ],
+                )
               ],
             )));
   }

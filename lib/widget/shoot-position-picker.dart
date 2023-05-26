@@ -1,13 +1,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vector_math/vector_math.dart' as math;
+import 'package:shot_tracker/model/match.dart';
+import '../model/match.dart' as match_lib;
 
 import '../model/shoot.dart';
 import '../model/shoot_type.dart';
+import '../painter/team_text_painter.dart';
 
 class _ShootPositionPickerState extends State<ShootPositionPicker> {
-  _ShootPositionPickerState(this.shootInTrack);
+  _ShootPositionPickerState({required this.shootInTrack, required this.match});
 
   final GlobalKey _pisteImageKey = GlobalKey();
 
@@ -15,6 +18,7 @@ class _ShootPositionPickerState extends State<ShootPositionPicker> {
 
   //final bool isShcbShoot;
   final Shoot shootInTrack;
+  final match_lib.Match match;
   bool pisteRendering = false;
   late Offset pisteOffset;
   late Size pisteSize;
@@ -24,41 +28,13 @@ class _ShootPositionPickerState extends State<ShootPositionPicker> {
     super.initState();
   }
 
-  _isLandingScreen() {
-    return (MediaQuery.of(context).size.width /
-            MediaQuery.of(context).size.height) >
-        1;
-  }
-
-  _update(context) {
-    print("init");
-    setState(() {});
-  }
-
   Offset? _getOffset(GlobalKey key) {
     RenderBox? box = key.currentContext?.findRenderObject() as RenderBox?;
     Offset? position = box?.localToGlobal(Offset.zero);
     Offset? position2 = box?.globalToLocal(Offset.zero);
 
     if (position != null) {
-      print("image : x:${position.dx},y:${position.dy}");
-      print("image : x:${position2!.dx},y:${position2.dy}");
-      print("Taille: ${box!.size.width}, ${box.size.height}");
       return position;
-    }
-  }
-
-  Future<void> _runsAfterBuild() async {
-    if (!pisteRendering) {
-      await Future.delayed(
-          Duration(milliseconds: 100)); // <-- Add a 0 dummy waiting time
-      // This code runs after build ...
-
-      setState(() {
-        pisteOffset = _getOffset(_pisteImageKey)!;
-        pisteSize = _getPisteSize(_pisteImageKey)!;
-        pisteRendering = true;
-      });
     }
   }
 
@@ -71,14 +47,23 @@ class _ShootPositionPickerState extends State<ShootPositionPicker> {
     }
   }
 
+  void _postFrameCallback(_) {
+    setState(() {
+      pisteOffset = _getOffset(_pisteImageKey)!;
+      pisteSize = _getPisteSize(_pisteImageKey)!;
+      pisteRendering = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    _runsAfterBuild();
+    SchedulerBinding.instance.addPostFrameCallback(_postFrameCallback);
+    //_runsAfterBuild();
     //dimensions écrans
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     print("Taille widget: ${width}, ${height}");
-    double angle = _isLandingScreen() ? 90 : 0;
+
     return Stack(children: [
       Container(
         //height: height,
@@ -89,11 +74,9 @@ class _ShootPositionPickerState extends State<ShootPositionPicker> {
         ),
       ),
       Container(
-          //height: height,
-
           child: pisteRendering
               ? CustomPaint(
-                  painter: TextTeamsPainter(pisteSize),
+                  painter: TextTeamsPainter(pisteSize: pisteSize, match: match),
                 )
               : Container()),
       GestureDetector(
@@ -102,7 +85,7 @@ class _ShootPositionPickerState extends State<ShootPositionPicker> {
           key: _pisteImageKey,
           height: height,
           fit: BoxFit.fill,
-          //width: width,
+          width: width,
           //alignment: Alignment.topCenter
         ),
         onTapDown: (details) {
@@ -140,48 +123,16 @@ class _ShootPositionPickerState extends State<ShootPositionPicker> {
 }
 
 class ShootPositionPicker extends StatefulWidget {
-  ShootPositionPicker({super.key, required this.shootInTrack});
+  ShootPositionPicker(
+      {super.key, required this.shootInTrack, required this.match});
 
   final Shoot shootInTrack;
+  final Match match;
   //late Offset shootInTrackPosition;
 
   @override
   State<ShootPositionPicker> createState() =>
-      _ShootPositionPickerState(shootInTrack);
-}
-
-class TextTeamsPainter extends CustomPainter {
-  TextTeamsPainter(this.pisteSize);
-
-  Size? pisteSize;
-  @override
-  void paint(Canvas canvas, Size size) {
-    final textStyle = TextStyle(
-      color: Colors.black,
-      fontSize: 30,
-    );
-    final textSpan = TextSpan(
-      text: 'Hello, world.',
-      style: textStyle,
-    );
-    final textPainter = TextPainter(
-      text: textSpan,
-      textDirection: TextDirection.ltr,
-    );
-    textPainter.layout(
-      minWidth: 0,
-      maxWidth: pisteSize!.width,
-    );
-
-    print(pisteSize!.width);
-    final xCenter = 0;
-    const yCenter = 0;
-    final offset = Offset(xCenter as double, yCenter as double);
-    textPainter.paint(canvas, offset);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
+      _ShootPositionPickerState(shootInTrack: shootInTrack, match: match);
 }
 
 class OpenPainter extends CustomPainter {
