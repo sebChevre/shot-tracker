@@ -10,8 +10,17 @@ jobs:
       my_secret: ${{secrets.commit_secret}}
     runs-on: ubuntu-latest
     steps:
-      - name: Set env
+      - name: Set release verion
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Get current time
+        uses: josStorer/get-current-time@v2
+        id: current-time
+        with:
+          format: DD.MM.YYYY-HH:MM
+          utcOffset: "+01:00"
+      - name: Set current time env
+        env:
+          TIME: "${{ steps.current-time.outputs.time }}"
       - name: Test
         run: |
           echo $RELEASE_VERSION
@@ -50,8 +59,14 @@ jobs:
         uses: jossef/action-set-json-field@v2.1
         with:
           file: ./build/web/version.json
-          field: comitis
+          field: comitid
           value: ${{ github.sha }}
+      - name: Update version.json buildtime
+        uses: jossef/action-set-json-field@v2.1
+        with:
+          file: ./build/web/version.json
+          field: time
+          value: ${{ env.TIME }}
           
       - name: SyncFtp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
