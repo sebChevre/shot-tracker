@@ -29,10 +29,6 @@ jobs:
           file: ./build/web/version.json
           field: version
           value: ${{ env.RELEASE_VERSION }}
-         with:
-          file: ./build/web/version.json
-          field: version2
-          value: ${{ env.RELEASE_VERSION }}
       - name: SyncFtp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
