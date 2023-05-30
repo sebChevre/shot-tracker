@@ -48,8 +48,16 @@ class _ShootPickerState extends State<ShootPicker> {
     dynamic json;
 
     json = jsonDecode(responseBody);
+    print(json);
+    VersionInfo versionInfo;
 
-    VersionInfo versionInfo = VersionInfo.fromJson(json);
+    try {
+      versionInfo = VersionInfo.fromJson(json);
+      print(versionInfo.comitid);
+    } catch (e) {
+      versionInfo = VersionInfo("[app_name]", "[version]", "[build_number]",
+          "[package_name]", "[comitid]", "[branch]", "[time]");
+    }
 
     return versionInfo;
   }
