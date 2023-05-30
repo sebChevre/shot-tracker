@@ -1,20 +1,12 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_grid_button/flutter_grid_button.dart';
-import 'package:shot_tracker/model/shoot.dart';
-import 'package:shot_tracker/model/shoot_type.dart';
 import 'package:shot_tracker/model/team.dart';
 import 'package:shot_tracker/widget/shoot-picker.dart';
-import 'package:shot_tracker/widget/shoot-position-picker.dart';
-import 'package:shot_tracker/model/team-stats.dart';
 import 'package:shot_tracker/model/match.dart' as match_lib;
 
-void main() => runApp(ShcbStats());
+void main() => runApp(const ShcbStats());
 
 class _HomePageState extends State<HomePage> {
-  /*** INITIAL STATE */
+  /// * INITIAL STATE
   final match_lib.Match match = match_lib.Match(
       resident: Team(nom: "SHC Bassecourt", nomCourt: "SHCB"),
       visiteur: Team(nom: "Visiteur", nomCourt: "VIS"));
@@ -27,13 +19,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<dynamic> main() async {
-    final configFile = File('versions.json');
-    final jsonString = await configFile.readAsString();
-    final dynamic jsonMap = jsonDecode(jsonString);
-    return jsonMap;
   }
 
   @override

@@ -68,8 +68,6 @@ flutter:
   assets:
     - images/piste.png
     - images/piste.svg
-    - .git/
-    - .git/refs/heads/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

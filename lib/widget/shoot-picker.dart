@@ -15,9 +15,9 @@ import '../model/match.dart' as match_lib;
 import 'package:http/http.dart' as http;
 
 class ShootPicker extends StatefulWidget {
-  match_lib.Match match;
+  final match_lib.Match match;
 
-  ShootPicker(this.match);
+  const ShootPicker(this.match, {super.key});
 
   @override
   State<ShootPicker> createState() => _ShootPickerState(match);
@@ -140,7 +140,7 @@ class _ShootPickerState extends State<ShootPicker> {
                   builder: (context, AsyncSnapshot<VersionInfo> snapshot) {
                     if (snapshot.hasData) {
                       return IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.info,
                             color: Colors.white,
                           ),
