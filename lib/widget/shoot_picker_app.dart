@@ -2,15 +2,13 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_grid_button/flutter_grid_button.dart';
 
-import 'package:shot_tracker/model/versions_info.dart';
-import 'package:shot_tracker/widget/main_screen.dart';
-import 'package:shot_tracker/widget/shoot_position_picker_screen.dart';
-import 'package:shot_tracker/widget/shoot_position_viewer.dart';
+import '../model/versions_info.dart';
+import '../widget/main_screen.dart';
+import '../widget/shoot_position_picker_screen.dart';
+import '../widget/ui_constants.dart';
 
 import '../model/shoot.dart';
-import '../model/shoot_type.dart';
 
 import '../model/match.dart' as match_lib;
 import 'package:http/http.dart' as http;
@@ -91,21 +89,27 @@ class _ShootPickerAppState extends State<ShootPickerApp> {
                                   Padding(
                                       padding: const EdgeInsets.only(top: 15),
                                       child: Text(
-                                        'Branche: ${snapshot.data!.branch}',
-                                        style: const TextStyle(fontSize: 11),
+                                        'Source: ${snapshot.data!.branch}',
+                                        style: UiConstants.buidInfosLabel,
                                       )),
                                   Padding(
                                       padding: const EdgeInsets.only(top: 15),
                                       child: Text(
-                                          'Hash: ${snapshot.data!.comitId}')),
+                                        'Hash: ${snapshot.data!.comitId}',
+                                        style: UiConstants.buidInfosLabel,
+                                      )),
                                   Padding(
                                       padding: const EdgeInsets.only(top: 15),
                                       child: Text(
-                                          'BuildNo: ${snapshot.data!.buildNumber}')),
+                                        'BuildNo: ${snapshot.data!.buildNumber}',
+                                        style: UiConstants.buidInfosLabel,
+                                      )),
                                   Padding(
                                       padding: const EdgeInsets.only(top: 15),
-                                      child:
-                                          Text('Time: ${snapshot.data!.time}'))
+                                      child: Text(
+                                        'Time: ${snapshot.data!.time}',
+                                        style: UiConstants.buidInfosLabel,
+                                      ))
                                 ]);
                           });
                     } else {

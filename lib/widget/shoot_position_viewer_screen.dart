@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shot_tracker/painter/shoots_view_painter.dart';
+import '../painter/shoots_view_painter.dart';
 
 import '../model/shoot.dart';
 import '../model/match.dart' as match_lib;

@@ -1,5 +1,5 @@
-import 'package:shot_tracker/model/shoot_type.dart';
-import 'package:shot_tracker/model/team.dart';
+import '../model/shoot_type.dart';
+import '../model/team.dart';
 
 class ShootEvent {
   final ShootType shootType;
@@ -7,7 +7,7 @@ class ShootEvent {
 
   ShootEvent({required this.shootType, required this.team});
 
-  static goal(Team team) {
+  factory ShootEvent.goal(Team team) {
     return ShootEvent(shootType: ShootType.goal, team: team);
   }
 

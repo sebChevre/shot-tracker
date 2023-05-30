@@ -24,6 +24,7 @@ class UiConstants {
   static const TextStyle teamGoalCounterLabel =
       TextStyle(fontSize: 42, fontWeight: FontWeight.bold);
 
+  static const TextStyle buidInfosLabel = TextStyle(fontSize: 11);
   static const residentGoalColor = Colors.green;
   static const residentSogColor = Colors.red;
   static const residentMissColor = Colors.orange;

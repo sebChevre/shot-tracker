@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shot_tracker/widget/ui_constants.dart';
 
 import '../model/shoot.dart';
-import '../model/shoot_type.dart';
 
 class ShootPointPainter extends CustomPainter {
   List<Offset> points;

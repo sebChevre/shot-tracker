@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_grid_button/flutter_grid_button.dart';
-import 'package:shot_tracker/model/match.dart' as match_lib;
-import 'package:shot_tracker/model/shoot_event.dart';
-import 'package:shot_tracker/widget/shoot_position_viewer_screen.dart';
-import 'package:shot_tracker/widget/ui_constants.dart';
+import '../model/match.dart' as match_lib;
+import '../model/shoot_event.dart';
+import '../widget/shoot_position_viewer_screen.dart';
+import '../widget/ui_constants.dart';
 
 import '../model/shoot.dart';
 
