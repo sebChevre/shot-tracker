@@ -35,6 +35,19 @@ jobs:
           file: ./build/web/version.json
           field: build-number
           value: ${{github.run_number}}
+      - name: Update version.json branchname
+        uses: jossef/action-set-json-field@v2.1
+        with:
+          file: ./build/web/version.json
+          field: branch
+          value: ${{ github.ref_name }}
+      - name: Update version.json commitid
+        uses: jossef/action-set-json-field@v2.1
+        with:
+          file: ./build/web/version.json
+          field: comitis
+          value: ${{ github.sha }}
+          
       - name: SyncFtp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
