@@ -28,7 +28,7 @@ jobs:
         id: packageJson
         uses: RadovanPelka/github-action-json@main
         with:
-          path: "package.json" # default value
+          path: "./build/web/package.json" # default value
           replaceWith: |
             {
               "app_name":"shot_tracker",
