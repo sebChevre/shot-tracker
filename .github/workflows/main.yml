@@ -17,11 +17,11 @@ jobs:
         id: current-time
         with:
           format: DD.MM.YYYY-HH:MM
-          utcOffset: "+01:00"
+          utcOffset: "+03:00"
       - name: Set current time env
         env:
           TIME: "${{ steps.current-time.outputs.time }}"
-        run: echo $TIME
+        run: echo "$TIME=${{ steps.current-time.outputs.time }}"
       - name: Test
         run: |
           echo $RELEASE_VERSION
