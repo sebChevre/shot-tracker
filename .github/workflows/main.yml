@@ -21,7 +21,7 @@ jobs:
       - name: Set current time env
         env:
           TIME: "${{ steps.current-time.outputs.time }}"
-        run: echo "$TIME=${{ steps.current-time.outputs.time }}"
+        run: echo "TIME=${{ steps.current-time.outputs.time }}"
       - name: Test
         run: |
           echo $RELEASE_VERSION
