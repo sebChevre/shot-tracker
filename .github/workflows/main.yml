@@ -26,6 +26,7 @@ jobs:
         run: |
           echo $RELEASE_VERSION
           echo ${{ env.RELEASE_VERSION }}
+          echo ${{ env.TIME }}
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
         with:
