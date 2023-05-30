@@ -62,7 +62,7 @@ jobs:
         with:
           file: ./build/web/version.json
           field: time
-          value: ${{ TIME }}
+          value: ${{ env.TIME }}
           
       - name: SyncFtp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
