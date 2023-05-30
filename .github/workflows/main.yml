@@ -23,8 +23,8 @@ jobs:
       - run: flutter config --enable-web
       - run: flutter pub get
       - run: flutter build web --web-renderer canvaskit
-      - name: Set and Get values from the package.json
-        id: packageJson
+      - name: Set and Get values from the version.json
+        id: versionJson
         uses: RadovanPelka/github-action-json@main
         with:
           path: "./build/web/version.json" # default value
