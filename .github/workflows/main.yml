@@ -23,6 +23,20 @@ jobs:
       - run: flutter config --enable-web
       - run: flutter pub get
       - run: flutter build web --web-renderer canvaskit
+      - name: Set and Get values from the package.json
+      - name: Set and Get values from the package.json
+        id: packageJson
+        uses: RadovanPelka/github-action-json@main
+        with:
+          path: "package.json" # default value
+          replaceWith: |
+            {
+              "app_name":"shot_tracker",
+              "version":echo ${{ env.RELEASE_VERSION }},
+              "build_number":"1.0.0",
+              "package_name":"shot_tracker"
+            }
+
       - name: SyncFtp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
