@@ -23,19 +23,16 @@ jobs:
       - run: flutter config --enable-web
       - run: flutter pub get
       - run: flutter build web --web-renderer canvaskit
-      - name: Set and Get values from the version.json
-        id: versionJson
-        uses: RadovanPelka/github-action-json@main
+      - name: Update my-file.json description
+      - uses: jossef/action-set-json-field@v2.1
         with:
-          path: "./build/web/version.json" # default value
-          replaceWith: |
-            {
-              "app_name":"shot_tracker",
-              "version":echo ${{ env.RELEASE_VERSION }},
-              "build_number":"1.0.0",
-              "package_name":"shot_tracker"
-            }
-
+          file: ./build/web/version.json
+          field: version
+          value: ${{ env.RELEASE_VERSION }}
+         with:
+          file: ./build/web/version.json
+          field: version2
+          value: ${{ env.RELEASE_VERSION }}
       - name: SyncFtp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
