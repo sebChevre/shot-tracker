@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'dart:async';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_grid_button/flutter_grid_button.dart';
-import 'package:git_info/git_info.dart';
+
 import 'package:shot_tracker/model/versions_info.dart';
 import 'package:shot_tracker/widget/shoot-position-picker.dart';
 import 'package:shot_tracker/widget/shoot-position-viewer.dart';
 
 import '../model/shoot.dart';
 import '../model/shoot_type.dart';
-import '../model/team-stats.dart';
+
 import '../model/match.dart' as match_lib;
 import 'package:http/http.dart' as http;
 
@@ -31,11 +31,6 @@ class _ShootPickerState extends State<ShootPicker> {
   bool isShcbShoot = true;
   late Shoot shootInTrack;
   late String branch;
-
-  Future<String> gitInfos() async {
-    var r = await GitInfo.get();
-    return r.branch;
-  }
 
   Future<VersionInfo> _loadVersionInfo(http.Client client) async {
     final response = await client.get(Uri.parse('/version.json'));
@@ -141,9 +136,8 @@ class _ShootPickerState extends State<ShootPicker> {
             appBar: AppBar(
               actions: [
                 FutureBuilder(
-                  future: Future.wait(
-                      [GitInfo.get(), _loadVersionInfo(http.Client())]),
-                  builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+                  future: _loadVersionInfo(http.Client()),
+                  builder: (context, AsyncSnapshot<VersionInfo> snapshot) {
                     if (snapshot.hasData) {
                       return IconButton(
                           icon: Icon(
@@ -154,22 +148,16 @@ class _ShootPickerState extends State<ShootPicker> {
                             showAboutDialog(
                                 context: context,
                                 applicationIcon: FlutterLogo(),
-                                applicationName:
-                                    '${snapshot.data![1].app_name}',
-                                applicationVersion:
-                                    '${snapshot.data![1].version}',
+                                applicationName: '${snapshot.data!.app_name}',
+                                applicationVersion: '${snapshot.data!.version}',
                                 applicationLegalese: 'SebChevre©seb-chevre.org',
                                 children: <Widget>[
                                   Padding(
                                       padding: EdgeInsets.only(top: 15),
-                                      child: Text(
-                                          'Branche: ${snapshot.data![0].branch}',
-                                          style: TextStyle(fontSize: 12))),
+                                      child: Text('Branche:')),
                                   Padding(
                                       padding: EdgeInsets.only(top: 15),
-                                      child: Text(
-                                          'Hash: ${snapshot.data![0].hash}',
-                                          style: TextStyle(fontSize: 12)))
+                                      child: Text('Hash:'))
                                 ]);
                           });
                     } else {

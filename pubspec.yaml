@@ -33,7 +33,6 @@ dependencies:
     sdk: flutter
   flutter_grid_button: 2.0.0
   flutter_svg: 1.0.3
-  git_info: ^1.1.2
 
 
   # The following adds the Cupertino Icons font to your application.

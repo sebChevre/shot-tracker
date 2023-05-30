@@ -85,7 +85,6 @@ class _ShootPositionViewerState extends State<ShootPositionViewer>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
@@ -165,21 +164,18 @@ class _ShootPositionViewerState extends State<ShootPositionViewer>
 }
 
 class OpenPainter extends CustomPainter {
-  List<Shoot> shcbShoots;
-  List<Shoot> advShoots;
+  List<Shoot> residentShoot;
+  List<Shoot> visiteurShoot;
   Size? pisteSize;
   Offset? pisteOffset;
 
   OpenPainter(
-      this.shcbShoots, this.advShoots, this.pisteSize, this.pisteOffset);
+      this.residentShoot, this.visiteurShoot, this.pisteSize, this.pisteOffset);
 
   @override
   void paint(Canvas canvas, Size size) {
-    advShoots.forEach((shoot) {
-      print("shoot adv, size: ${pisteSize!.height}/${pisteSize!.width}," +
-          "offset: ${pisteOffset!.dx}/${pisteOffset!.dy}" +
-          "shoot: ${shoot.shootPosition.x} / ${shoot.shootPosition.y}");
-
+    //shoots adverses
+    for (var shoot in visiteurShoot) {
       Color shootColor;
 
       switch (shoot.shootType) {
@@ -197,23 +193,26 @@ class OpenPainter extends CustomPainter {
           break;
       }
 
-      var paint1 = Paint()..color = shootColor;
-      var paint2 = Paint()..color = Colors.black;
+      var residentShootInteriorPaint = Paint()..color = shootColor;
+      var residentShootBorderPaint = Paint()..color = Colors.black;
 
+      //Border
       canvas.drawCircle(
-          Offset(pisteOffset!.dx + (shoot.shootPosition.x * pisteSize!.width),
+          Offset((shoot.shootPosition.x * pisteSize!.width),
               (shoot.shootPosition.y * pisteSize!.height)),
           7,
-          paint2);
-      //draw points on canvas
+          residentShootBorderPaint);
+
+      //Shoot
       canvas.drawCircle(
-          Offset(pisteOffset!.dx + (shoot.shootPosition.x * pisteSize!.width),
+          Offset((shoot.shootPosition.x * pisteSize!.width),
               (shoot.shootPosition.y * pisteSize!.height)),
           5,
-          paint1);
-    });
+          residentShootInteriorPaint);
+    }
 
-    shcbShoots.forEach((shoot) {
+    //shoot locaux
+    residentShoot.forEach((shoot) {
       Color shootColor;
       print("shoot res");
       switch (shoot.shootType) {
@@ -237,7 +236,7 @@ class OpenPainter extends CustomPainter {
         ..strokeWidth = 10;
 
       canvas.drawCircle(
-          Offset(pisteOffset!.dx + (shoot.shootPosition.x * pisteSize!.width),
+          Offset((shoot.shootPosition.x * pisteSize!.width),
               (shoot.shootPosition.y * pisteSize!.height)),
           5,
           paint1);
