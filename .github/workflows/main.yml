@@ -21,15 +21,11 @@ jobs:
       - name: Set current time env
         env:
           TIME: "${{ steps.current-time.outputs.time }}"
+        run: echo $TIME
       - name: Test
         run: |
           echo $RELEASE_VERSION
           echo ${{ env.RELEASE_VERSION }}
-      - name: 'Get Previous tag'
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: 1.1.1 # Optional fallback tag to use when no tag can be found
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
         with:
