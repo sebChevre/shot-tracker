@@ -24,7 +24,6 @@ jobs:
       - run: flutter pub get
       - run: flutter build web --web-renderer canvaskit
       - name: Set and Get values from the package.json
-      - name: Set and Get values from the package.json
         id: packageJson
         uses: RadovanPelka/github-action-json@main
         with:
