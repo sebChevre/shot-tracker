@@ -154,10 +154,20 @@ class _ShootPickerState extends State<ShootPicker> {
                                 children: <Widget>[
                                   Padding(
                                       padding: EdgeInsets.only(top: 15),
-                                      child: Text('Branche:')),
+                                      child: Text(
+                                          'Branche: ${snapshot.data!.branch}')),
                                   Padding(
                                       padding: EdgeInsets.only(top: 15),
-                                      child: Text('Hash:'))
+                                      child: Text(
+                                          'Hash: ${snapshot.data!.comitid}')),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 15),
+                                      child: Text(
+                                          'BuildNo: ${snapshot.data!.build_number}')),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 15),
+                                      child:
+                                          Text('Time: ${snapshot.data!.time}'))
                                 ]);
                           });
                     } else {
