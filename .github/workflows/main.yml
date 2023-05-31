@@ -69,7 +69,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: aj0c0.ftp.infomaniak.com
-          username: aj0c0_seb
-          password: Seb%110978
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
           local-dir: ./build/web/
-          server-dir:  /sites/shot-tracker.dev.seb-chevre.org/
+          server-dir:  ${{ env.PROD_ENV }}
