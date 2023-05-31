@@ -94,6 +94,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         color: UiConstants.residentSogColor),
                     GridButtonItem(
+                        value: ShootEvent.sog(match.resident),
                         child: Text(
                           "${match.getResidentstats().sog()}",
                           style: UiConstants.shootCounterStyle,
@@ -108,6 +109,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         color: UiConstants.visiteurSogColor),
                     GridButtonItem(
+                        value: ShootEvent.sog(match.visiteur),
                         child: Text(
                           "${match.getVisiteurStats().sog()}",
                           style: UiConstants.shootCounterStyle,
@@ -124,6 +126,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         color: UiConstants.residentMissColor),
                     GridButtonItem(
+                        value: ShootEvent.miss(match.resident),
                         child: Text(
                           "${match.getResidentstats().miss()}",
                           style: UiConstants.shootCounterStyle,
@@ -138,6 +141,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         color: UiConstants.visiteurMissColor),
                     GridButtonItem(
+                        value: ShootEvent.miss(match.visiteur),
                         child: Text(
                           "${match.getVisiteurStats().miss()}",
                           style: UiConstants.shootCounterStyle,
@@ -154,6 +158,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         color: UiConstants.residentBlockColor),
                     GridButtonItem(
+                        value: ShootEvent.block(match.resident),
                         child: Text(
                           "${match.getResidentstats().block()}",
                           style: UiConstants.shootCounterStyle,
@@ -168,6 +173,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         color: UiConstants.visiteurBlockColor),
                     GridButtonItem(
+                        value: ShootEvent.block(match.visiteur),
                         child: Text(
                           "${match.getVisiteurStats().block()}",
                           style: UiConstants.shootCounterStyle,
@@ -184,6 +190,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         color: UiConstants.residentGoalColor),
                     GridButtonItem(
+                        value: ShootEvent.goal(match.resident),
                         child: Text(
                           "${match.getResidentstats().goal()}",
                           style: UiConstants.shootCounterStyle,
@@ -198,6 +205,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         color: UiConstants.visiteurGoalColor),
                     GridButtonItem(
+                        value: ShootEvent.goal(match.visiteur),
                         child: Text(
                           "${match.getVisiteurStats().goal()}",
                           style: UiConstants.shootCounterStyle,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../widget/utils.dart';
 import '../model/match.dart';
 import '../painter/shoot_point_painter.dart';
 import '../model/match.dart' as match_lib;
@@ -39,28 +40,10 @@ class _ShootPositionPickerScreenState extends State<ShootPositionPickerScreen> {
     shootInTrack = widget.shootInTrack;
   }
 
-  Offset? _getOffset(GlobalKey key) {
-    RenderBox? box = key.currentContext?.findRenderObject() as RenderBox?;
-    Offset? position = box?.localToGlobal(Offset.zero);
-
-    if (position != null) {
-      return position;
-    }
-  }
-
-  Size? _getPisteSize(GlobalKey key) {
-    RenderBox? box = key.currentContext?.findRenderObject() as RenderBox?;
-    Size? size = box?.size;
-
-    if (size != null) {
-      return size;
-    }
-  }
-
   void _postFrameCallback(_) {
     setState(() {
-      pisteOffset = _getOffset(_pisteImageKey)!;
-      pisteSize = _getPisteSize(_pisteImageKey)!;
+      pisteOffset = Utils.getPisteOffset(_pisteImageKey)!;
+      pisteSize = Utils.getPisteSize(_pisteImageKey)!;
       pisteRendering = true;
     });
   }
@@ -76,7 +59,7 @@ class _ShootPositionPickerScreenState extends State<ShootPositionPickerScreen> {
     return Stack(children: [
       CustomPaint(
         painter: ShootPointPainter(
-            _getOffset(_pisteImageKey), _shootPoints, shootInTrack),
+            Utils.getPisteOffset(_pisteImageKey), _shootPoints, shootInTrack),
       ),
       Container(
           child: pisteRendering
@@ -105,12 +88,12 @@ class _ShootPositionPickerScreenState extends State<ShootPositionPickerScreen> {
           final yg = globalTapPosition.dy;
 
           setState(() {
-            Offset? pisteOffset = _getOffset(_pisteImageKey);
+            Offset? pisteOffset = Utils.getPisteOffset(_pisteImageKey);
             _shootPoints.add(Offset(x, y));
 
             shootInTrack.addShootPosition(
-                x / _getPisteSize(_pisteImageKey)!.width,
-                y / _getPisteSize(_pisteImageKey)!.height);
+                x / Utils.getPisteSize(_pisteImageKey)!.width,
+                y / Utils.getPisteSize(_pisteImageKey)!.height);
           });
         },
       ),

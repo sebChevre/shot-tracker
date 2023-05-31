@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../widget/utils.dart';
 import '../painter/shoots_view_painter.dart';
 
 import '../model/shoot.dart';
@@ -38,24 +39,6 @@ class _ShootPositionViewerScreenState extends State<ShootPositionViewerScreen>
     return allTeamsShoots;
   }
 
-  Offset? _getPisteOffset(GlobalKey key) {
-    RenderBox? box = key.currentContext?.findRenderObject() as RenderBox?;
-    Offset? position = box?.localToGlobal(Offset.zero);
-
-    if (position != null) {
-      return position;
-    }
-  }
-
-  Size? _getPisteSize(GlobalKey key) {
-    RenderBox? box = key.currentContext?.findRenderObject() as RenderBox?;
-    Size? size = box?.size;
-
-    if (size != null) {
-      return size;
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -69,8 +52,8 @@ class _ShootPositionViewerScreenState extends State<ShootPositionViewerScreen>
 
   void _postFrameCallback(_) {
     setState(() {
-      pisteOffset = _getPisteOffset(_pisteImageKey)!;
-      pisteSize = _getPisteSize(_pisteImageKey)!;
+      pisteOffset = Utils.getPisteOffset(_pisteImageKey)!;
+      pisteSize = Utils.getPisteSize(_pisteImageKey)!;
       pisteRendering = true;
     });
   }
