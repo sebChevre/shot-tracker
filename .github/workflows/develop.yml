@@ -27,6 +27,7 @@ jobs:
           echo $RELEASE_VERSION
           echo ${{ env.RELEASE_VERSION }}
           echo ${{ env.TIME }}
+          echo ${{ vars.DEV_ENV}}
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
         with:
@@ -72,4 +73,4 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           local-dir: ./build/web/
-          server-dir:  ${{ env.DEV_ENV }}
+          server-dir:  ${{ vars.DEV_ENV }}
