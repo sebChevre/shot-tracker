@@ -68,7 +68,8 @@ jobs:
       - name: SyncFtp
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          username: ${{ secret.FTP_USER }}
-          password: ${{ secret.FTP_PASS }}
+          server: aj0c0.ftp.infomaniak.com
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
           local-dir: ./build/web/
           server-dir:  ${{ env.PROD_ENV }}
