@@ -1,5 +1,5 @@
-import 'package:shot_tracker/model/shoot.dart';
-import 'package:shot_tracker/model/team-stats.dart';
+import '../model/shoot.dart';
+import '../model/team_stats.dart';
 
 class Team {
   Team({required this.nom, required this.nomCourt});

@@ -1,44 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:shot_tracker/model/team.dart';
-import 'package:shot_tracker/widget/shoot-picker.dart';
+import 'package:shot_tracker/widget/shoot_picker_app.dart';
 import 'package:shot_tracker/model/match.dart' as match_lib;
 
-void main() => runApp(const ShcbStats());
+void main() => runApp(Main());
 
-class _HomePageState extends State<HomePage> {
-  /// * INITIAL STATE
+class Main extends StatelessWidget with RouteAware {
   final match_lib.Match match = match_lib.Match(
       resident: Team(nom: "SHC Bassecourt", nomCourt: "SHCB"),
       visiteur: Team(nom: "Visiteur", nomCourt: "VIS"));
 
-  bool shootInTrack = false;
-  bool shcbShoot = true;
-
-  var points = <Offset>[];
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  Main({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Shot Stats App', home: ShootPicker(match));
-  }
-}
-
-class HomePage extends StatefulWidget with RouteAware {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class ShcbStats extends StatelessWidget {
-  const ShcbStats({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    return MaterialApp(title: 'Shot Tracker', home: ShootPickerApp(match));
   }
 }

@@ -1,6 +1,5 @@
-import 'package:shot_tracker/model/shoot.dart';
-import 'package:shot_tracker/model/shoot_position.dart';
-import 'package:shot_tracker/model/shoot_type.dart';
+import '../model/shoot.dart';
+import '../model/shoot_type.dart';
 
 class TeamStat {
   TeamStat({required this.shoots});

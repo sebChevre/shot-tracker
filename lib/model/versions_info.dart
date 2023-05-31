@@ -1,24 +1,42 @@
 class VersionInfo {
-  final String app_name;
+  final String appName;
   final String version;
-  final String build_number;
-  final String package_name;
+  final String buildNumber;
+  final String packageName;
   final String time;
-  final String comitid;
+  final String comitId;
   final String branch;
 
-  const VersionInfo(this.app_name, this.version, this.build_number,
-      this.package_name, this.comitid, this.branch, this.time);
+  const VersionInfo(
+      {required this.appName,
+      required this.version,
+      required this.buildNumber,
+      required this.packageName,
+      required this.comitId,
+      required this.branch,
+      required this.time});
 
   factory VersionInfo.fromJson(Map<String, dynamic> json) {
     return VersionInfo(
-      json['app_name'] as String,
-      json['version'] as String,
-      json['build-number'] as String,
-      json['package_name'] as String,
-      json['comitid'] as String,
-      json['branch'] as String,
-      json['time'] as String,
+      appName: json['app_name'] as String,
+      version: json['version'] as String,
+      buildNumber: json['build-number'] as String,
+      packageName: json['package_name'] as String,
+      comitId: json['comitid'] as String,
+      branch: json['branch'] as String,
+      time: json['time'] as String,
+    );
+  }
+
+  factory VersionInfo.noInfos() {
+    return const VersionInfo(
+      appName: "[app_name]",
+      version: "[version]",
+      buildNumber: "[build-number]",
+      packageName: "[package_name]",
+      comitId: "[comitid]",
+      branch: "[branch]",
+      time: "[time]",
     );
   }
 }

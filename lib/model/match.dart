@@ -1,9 +1,6 @@
-import 'package:shot_tracker/model/shoot.dart';
-import 'package:shot_tracker/model/shoot_position.dart';
-import 'package:shot_tracker/model/shoot_type.dart';
-import 'package:shot_tracker/model/team-stats.dart';
-import 'package:shot_tracker/model/team.dart';
-import 'package:shot_tracker/model/team.dart';
+import '../model/shoot.dart';
+import '../model/team.dart';
+import '../model/team_stats.dart';
 
 class Match {
   Match({required this.resident, required this.visiteur});
