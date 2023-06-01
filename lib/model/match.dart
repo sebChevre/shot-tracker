@@ -27,8 +27,8 @@ class Match {
     return visiteurStats;
   }
 
-  addShootForTeam(Team team, Shoot shoot) {
-    if (team == resident) {
+  addShootForTeam(Shoot shoot) {
+    if (shoot.team == resident) {
       residentStats.addShoot(shoot);
     } else {
       visiteurStats.addShoot(shoot);
