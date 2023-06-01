@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shot_tracker/model/team.dart';
-import 'package:shot_tracker/widget/shoot_picker_app.dart';
-import 'package:shot_tracker/model/match.dart' as match_lib;
+import '../model/team.dart';
+import '../widget/main_screen.dart';
+import '../model/match.dart' as match_lib;
 
 void main() => runApp(Main());
 
@@ -14,6 +14,6 @@ class Main extends StatelessWidget with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Shot Tracker', home: ShootPickerApp(match));
+    return MaterialApp(title: 'Shot Tracker', home: MainScreen(match: match));
   }
 }
