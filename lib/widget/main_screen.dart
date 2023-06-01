@@ -60,6 +60,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var imgWitdh = width / 8;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -155,11 +157,26 @@ class _MainScreenState extends State<MainScreen> {
                             width: 2,
                           ),
                           borderRadius: 10,
-                          child: const Text(
-                            UiConstants.sogLabel,
-                            style: UiConstants.shootLabelStyle,
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                new Image.asset(
+                                  'images/sog.png',
+                                  width: imgWitdh,
+                                  fit: BoxFit.cover,
+                                ),
+                                const Text(
+                                  UiConstants.sogLabel,
+                                  style: UiConstants.shootLabelStyle,
+                                ),
+                              ],
+                            ),
                           ),
                           color: UiConstants.residentSogColor),
+
+                      // color: UiConstants.residentSogColor),
                       GridButtonItem(
                           value: ShootEvent.sog(match.resident),
                           child: Text(
@@ -174,9 +191,23 @@ class _MainScreenState extends State<MainScreen> {
                             width: 2,
                           ),
                           borderRadius: 10,
-                          child: const Text(
-                            UiConstants.sogLabel,
-                            style: UiConstants.shootLabelStyle,
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                new Image.asset(
+                                  'images/sog.png',
+                                  width: imgWitdh,
+                                  //height: 240.0,
+                                  fit: BoxFit.cover,
+                                ),
+                                const Text(
+                                  UiConstants.sogLabel,
+                                  style: UiConstants.shootLabelStyle,
+                                ),
+                              ],
+                            ),
                           ),
                           color: UiConstants.visiteurSogColor),
                       GridButtonItem(
@@ -195,9 +226,22 @@ class _MainScreenState extends State<MainScreen> {
                             width: 2,
                           ),
                           borderRadius: 10,
-                          child: const Text(
-                            UiConstants.missLabel,
-                            style: UiConstants.shootLabelStyle,
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                new Image.asset(
+                                  'images/miss.png',
+                                  width: imgWitdh,
+                                  fit: BoxFit.cover,
+                                ),
+                                const Text(
+                                  UiConstants.missLabel,
+                                  style: UiConstants.shootLabelStyle,
+                                ),
+                              ],
+                            ),
                           ),
                           color: UiConstants.residentMissColor),
                       GridButtonItem(
@@ -214,9 +258,22 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                           borderRadius: 10,
                           flex: 2,
-                          child: const Text(
-                            UiConstants.missLabel,
-                            style: UiConstants.shootLabelStyle,
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                new Image.asset(
+                                  'images/miss.png',
+                                  width: imgWitdh,
+                                  fit: BoxFit.cover,
+                                ),
+                                const Text(
+                                  UiConstants.missLabel,
+                                  style: UiConstants.shootLabelStyle,
+                                ),
+                              ],
+                            ),
                           ),
                           color: UiConstants.visiteurMissColor),
                       GridButtonItem(
@@ -235,9 +292,22 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                           borderRadius: 10,
                           flex: 2,
-                          child: const Text(
-                            UiConstants.blockLabel,
-                            style: UiConstants.shootLabelStyle,
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                new Image.asset(
+                                  'images/block.png',
+                                  width: imgWitdh,
+                                  fit: BoxFit.cover,
+                                ),
+                                const Text(
+                                  UiConstants.blockLabel,
+                                  style: UiConstants.shootLabelStyle,
+                                ),
+                              ],
+                            ),
                           ),
                           color: UiConstants.residentBlockColor),
                       GridButtonItem(
@@ -254,9 +324,22 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                           borderRadius: 10,
                           flex: 2,
-                          child: const Text(
-                            UiConstants.blockLabel,
-                            style: UiConstants.shootLabelStyle,
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                new Image.asset(
+                                  'images/block.png',
+                                  width: imgWitdh,
+                                  fit: BoxFit.cover,
+                                ),
+                                const Text(
+                                  UiConstants.blockLabel,
+                                  style: UiConstants.shootLabelStyle,
+                                ),
+                              ],
+                            ),
                           ),
                           color: UiConstants.visiteurBlockColor),
                       GridButtonItem(
@@ -275,9 +358,22 @@ class _MainScreenState extends State<MainScreen> {
                             width: 2,
                           ),
                           borderRadius: 10,
-                          child: const Text(
-                            UiConstants.goalLabel,
-                            style: UiConstants.shootLabelStyle,
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                new Image.asset(
+                                  'images/goal.png',
+                                  width: imgWitdh,
+                                  fit: BoxFit.cover,
+                                ),
+                                const Text(
+                                  UiConstants.goalLabel,
+                                  style: UiConstants.shootLabelStyle,
+                                ),
+                              ],
+                            ),
                           ),
                           color: UiConstants.residentGoalColor),
                       GridButtonItem(
@@ -294,9 +390,22 @@ class _MainScreenState extends State<MainScreen> {
                             width: 2,
                           ),
                           borderRadius: 10,
-                          child: const Text(
-                            UiConstants.goalLabel,
-                            style: UiConstants.shootLabelStyle,
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                new Image.asset(
+                                  'images/goal.png',
+                                  width: imgWitdh,
+                                  fit: BoxFit.cover,
+                                ),
+                                const Text(
+                                  UiConstants.goalLabel,
+                                  style: UiConstants.shootLabelStyle,
+                                ),
+                              ],
+                            ),
                           ),
                           color: UiConstants.visiteurGoalColor),
                       GridButtonItem(
