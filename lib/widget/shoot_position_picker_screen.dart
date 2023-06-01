@@ -61,6 +61,7 @@ class _ShootPositionPickerScreenState extends State<ShootPositionPickerScreen> {
         leading: BackButton(onPressed: () {
           Navigator.pop(context, shootInTrack);
         }),
+        title: const Text("Shots Picker"),
       ),
       body: Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -127,7 +127,7 @@ class _MainScreenState extends State<MainScreen> {
               GridView.count(
                   crossAxisCount: 2,
                   shrinkWrap: true,
-                  childAspectRatio: (1 / .5),
+                  childAspectRatio: (1 / .7),
                   children: [
                     Padding(
                       padding: EdgeInsets.all(10),
@@ -146,6 +146,8 @@ class _MainScreenState extends State<MainScreen> {
                     //Padding(padding: EdgeInsets.only(bottom: 30)),
                   ]),
               Expanded(
+                  child: Padding(
+                padding: EdgeInsets.all(10),
                 child: GridButton(
                   onPressed: onShotButtonClick,
                   items: [
@@ -153,7 +155,7 @@ class _MainScreenState extends State<MainScreen> {
                       GridButtonItem(
                           flex: 2,
                           value: ShootEvent.sog(match.resident),
-                          shape: BorderSide(
+                          shape: const BorderSide(
                             width: 2,
                           ),
                           borderRadius: 10,
@@ -178,12 +180,14 @@ class _MainScreenState extends State<MainScreen> {
 
                       // color: UiConstants.residentSogColor),
                       GridButtonItem(
+                          shape: BorderSide(width: 0, color: Colors.white),
                           value: ShootEvent.sog(match.resident),
                           child: Text(
                             "${match.getResidentstats().sog()}",
                             style: UiConstants.shootCounterStyle,
                           ),
                           color: UiConstants.shootCounterBgd),
+
                       GridButtonItem(
                           flex: 2,
                           value: ShootEvent.sog(match.visiteur),
@@ -418,7 +422,7 @@ class _MainScreenState extends State<MainScreen> {
                     ],
                   ],
                 ),
-              ),
+              )),
               const Padding(padding: EdgeInsets.only(top: 20)),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(

@@ -41,6 +41,7 @@ dependencies:
   vector_math: 
   tuple: ^2.0.1
   http: ^0.13.5
+  touchable: 1.0.2
 
 dev_dependencies:
   flutter_test:

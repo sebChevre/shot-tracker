@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:touchable/touchable.dart';
 
 import '../model/shoot.dart';
 import '../widget/ui_constants.dart';
