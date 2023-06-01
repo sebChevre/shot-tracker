@@ -53,9 +53,11 @@ class _MainScreenState extends State<MainScreen> {
 
     Shoot shoot = result;
 
-    setState(() {
-      match.addShootForTeam(shoot);
-    });
+    if (shoot.positionDefined) {
+      setState(() {
+        match.addShootForTeam(shoot);
+      });
+    }
   }
 
   @override
